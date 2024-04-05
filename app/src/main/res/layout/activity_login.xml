@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.LoginActivity">
+    tools:context=".presentation.login.LoginActivity">
 
     <TextView
         android:id="@+id/tv_login_title"
@@ -37,6 +37,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/login_input_id"
+        android:inputType="text"
+        android:maxLines="1"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/tv_login_id"
         app:layout_constraintStart_toStartOf="@id/tv_login_id"
@@ -60,6 +62,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/login_input_pw"
         android:inputType="textPassword"
+        android:maxLines="1"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/tv_login_pw"
         app:layout_constraintStart_toStartOf="@id/tv_login_pw"
