@@ -27,12 +27,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUserData() {
-        val userInfo = viewmodel.getUserData()
-
-        binding.tvUsername.text = userInfo.nickname
-        binding.tvUserid.text = userInfo.id
-        binding.tvUserpw.text = userInfo.pw
-
+        viewmodel.getUserData()?.let { userInfo ->
+            with(binding){
+                tvUsername.text = userInfo.nickname
+                tvUserid.text = userInfo.id
+                tvUserpw.text = userInfo.pw
+            }
+        }
     }
 
 

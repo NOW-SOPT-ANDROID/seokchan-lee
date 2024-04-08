@@ -41,8 +41,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initSignupBtnClickListener() {
         binding.btSignup.setOnClickListener {
-            val intent = Intent(this, SignupActivity::class.java)
-            startActivity(intent)
+            Intent(this, SignupActivity::class.java).let {
+                startActivity(it)
+            }
         }
     }
 
@@ -50,8 +51,9 @@ class LoginActivity : AppCompatActivity() {
         viewmodel.loginState.observe(this) {
             if (viewmodel.loginState.value == true) {
                 Toast.makeText(this, R.string.login_success_login, Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                Intent(this, MainActivity::class.java).let {
+                    startActivity(it)
+                }
             }
         }
     }
