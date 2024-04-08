@@ -4,11 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sopt.now.MyApplication
-import com.sopt.now.model.User
+import com.sopt.now.presentation.model.User
 
 class LoginViewModel : ViewModel() {
     private val _loginState: MutableLiveData<Boolean> = MutableLiveData(false)
     val loginState: LiveData<Boolean> = _loginState
+
+    init {
+        loginStateChange()
+    }
 
     fun loginStateChange() {
         if (MyApplication.userdata.getBoolean(LOGIN_STATE_KEY))
@@ -21,8 +25,8 @@ class LoginViewModel : ViewModel() {
 
     fun checkInvalidLogin(inputId: String, inputPw: String, userData: User): Boolean {
         when {
-            inputId.isNullOrBlank() -> return false
-            inputPw.isNullOrBlank() -> return false
+            inputId.isBlank() -> return false
+            inputPw.isBlank() -> return false
             inputId.equals(userData.id) && inputPw.equals(userData.pw) -> {
                 MyApplication.userdata.setBoolean(LOGIN_STATE_KEY, true)
                 loginStateChange()

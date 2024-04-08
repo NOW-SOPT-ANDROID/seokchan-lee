@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUserData() {
-        viewmodel.getUserData()?.let { userInfo ->
+        viewmodel.getUserData().let { userInfo ->
             with(binding){
                 tvUsername.text = userInfo.nickname
                 tvUserid.text = userInfo.id
