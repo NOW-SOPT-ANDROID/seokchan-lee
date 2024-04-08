@@ -1,8 +1,8 @@
-package com.sopt.now.util
+package com.sopt.now.data
 
 import android.content.Context
 import com.google.gson.Gson
-import com.sopt.now.model.User
+import com.sopt.now.presentation.model.User
 
 class preferenceUtil(context: Context) {
     private val userdata = context.getSharedPreferences("userData", Context.MODE_PRIVATE)

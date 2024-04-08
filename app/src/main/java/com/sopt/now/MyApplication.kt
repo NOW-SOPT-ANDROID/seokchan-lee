@@ -1,7 +1,7 @@
 package com.sopt.now
 
 import android.app.Application
-import com.sopt.now.util.preferenceUtil
+import com.sopt.now.data.preferenceUtil
 
 class MyApplication : Application() {
 

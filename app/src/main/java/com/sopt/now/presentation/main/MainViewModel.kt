@@ -2,7 +2,7 @@ package com.sopt.now.presentation.main
 
 import androidx.lifecycle.ViewModel
 import com.sopt.now.MyApplication
-import com.sopt.now.model.User
+import com.sopt.now.presentation.model.User
 
 class MainViewModel : ViewModel() {
     fun getUserData(): User {

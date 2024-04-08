@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.sopt.now.databinding.ActivitySignupBinding
-import com.sopt.now.model.User
+import com.sopt.now.presentation.model.User
 
 
 class SignupActivity : AppCompatActivity() {

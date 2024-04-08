@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.sopt.now.MyApplication
 import com.sopt.now.R
-import com.sopt.now.model.User
+import com.sopt.now.presentation.model.User
 
 class SignupViewModel : ViewModel() {
 
