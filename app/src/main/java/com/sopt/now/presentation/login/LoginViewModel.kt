@@ -14,7 +14,7 @@ class LoginViewModel : ViewModel() {
         loginStateChange()
     }
 
-    fun loginStateChange() {
+    private fun loginStateChange() {
         if (MyApplication.userdata.getBoolean(LOGIN_STATE_KEY))
             _loginState.value = true
     }
@@ -27,7 +27,7 @@ class LoginViewModel : ViewModel() {
         when {
             inputId.isBlank() -> return false
             inputPw.isBlank() -> return false
-            inputId.equals(userData.id) && inputPw.equals(userData.pw) -> {
+            inputId == userData.id && inputPw == userData.pw -> {
                 MyApplication.userdata.setBoolean(LOGIN_STATE_KEY, true)
                 loginStateChange()
                 return true

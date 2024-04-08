@@ -15,12 +15,12 @@ class SignupViewModel : ViewModel() {
     }
 
     fun checkInvalidSignup(userInfo: User): SignupState {
-        when {
-            userInfo.nickname.isEmpty() -> return SignupState(false, R.string.signup_empty_nickname)
-            userInfo.mbti.isEmpty() -> return SignupState(false, R.string.signup_empty_mbti)
-            userInfo.id.length !in 6..10 -> return SignupState(false, R.string.signup_empty_id)
-            userInfo.pw.length !in 8..12 -> return SignupState(false, R.string.signup_empty_pw)
-            else -> return SignupState(true, R.string.login_signup_success)
+        return when {
+            userInfo.nickname.isEmpty() -> SignupState(false, R.string.signup_empty_nickname)
+            userInfo.mbti.isEmpty() -> SignupState(false, R.string.signup_empty_mbti)
+            userInfo.id.length !in 6..10 -> SignupState(false, R.string.signup_empty_id)
+            userInfo.pw.length !in 8..12 -> SignupState(false, R.string.signup_empty_pw)
+            else -> SignupState(true, R.string.login_signup_success)
         }
     }
 
