@@ -136,13 +136,14 @@ class SignUpActivity : ComponentActivity() {
             )
             Button(
                 onClick = {
-                    val user = User(
+                    User(
                         userId,
                         userPw,
                         userNickname,
                         userMBTI
-                    )
-                    checkInvalidUserInfo(user)
+                    ).also {
+                        checkInvalidUserInfo(it)
+                    }
                 },
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
@@ -167,17 +168,26 @@ class SignUpActivity : ComponentActivity() {
 
     fun checkInvalidUserInfo(userInfo: User) {
         when {
-            userInfo.id.isEmpty() -> makeToastMessage(applicationContext,
-                getString(R.string.signup_screen_empty_id))
-            userInfo.pw.isEmpty() -> makeToastMessage(applicationContext,
-                getString(R.string.signup_screen_empty_pw))
+            userInfo.id.isEmpty() -> makeToastMessage(
+                applicationContext,
+                getString(R.string.signup_screen_empty_id)
+            )
+
+            userInfo.pw.isEmpty() -> makeToastMessage(
+                applicationContext,
+                getString(R.string.signup_screen_empty_pw)
+            )
+
             userInfo.nickname.isEmpty() -> makeToastMessage(
                 applicationContext,
                 getString(R.string.signup_screen_empty_nickname)
             )
 
-            userInfo.mbti.isEmpty() -> makeToastMessage(applicationContext,
-                getString(R.string.signup_screen_empty_mbti))
+            userInfo.mbti.isEmpty() -> makeToastMessage(
+                applicationContext,
+                getString(R.string.signup_screen_empty_mbti)
+            )
+
             userInfo.id.length !in 6..10 -> makeToastMessage(
                 applicationContext,
                 getString(R.string.signup_screen_invalid_id)
@@ -189,9 +199,11 @@ class SignUpActivity : ComponentActivity() {
             )
 
             else -> {
-                intent.putExtra(USER_KEY, userInfo)
-                setResult(RESULT_OK, intent)
-                finish()
+                intent.putExtra(USER_KEY, userInfo).apply {
+                    setResult(RESULT_OK, intent)
+                }.let {
+                    finish()
+                }
             }
         }
     }

@@ -113,7 +113,7 @@ class LoginActivity : ComponentActivity() {
 
             Spacer(
                 modifier = Modifier
-                    .height(300.dp)
+                    .weight(1f)
             )
             Button(
                 onClick = {
@@ -132,8 +132,9 @@ class LoginActivity : ComponentActivity() {
             )
             Button(
                 onClick = {
-                    val intent = Intent(applicationContext, SignUpActivity::class.java)
-                    resultLauncher.launch(intent)
+                    Intent(applicationContext, SignUpActivity::class.java).let {
+                        resultLauncher.launch(it)
+                    }
                 },
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
@@ -158,13 +159,13 @@ class LoginActivity : ComponentActivity() {
                 ActivityResultContracts.StartActivityForResult()
             ) { result ->
                 if (result.resultCode == RESULT_OK) {
-                    val userInfo = result.data?.getParcelable(USER_KEY, User::class.java)
-                    user = User(
-                        userInfo?.id.toString(),
-                        userInfo?.pw.toString(),
-                        userInfo?.nickname.toString(),
-                        userInfo?.mbti.toString()
-                    )
+
+                    result.data?.getParcelable(USER_KEY, User::class.java)?.let {
+                        user = it
+                    }
+
+
+
                     makeToastMessage(
                         applicationContext,
                         getString(R.string.login_screen_success_signup)
@@ -175,12 +176,12 @@ class LoginActivity : ComponentActivity() {
 
     private fun checkInvalidLogin(inputId: String, inputPw: String) {
         when {
-            inputId.isNullOrBlank() -> makeToastMessage(
+            inputId.isBlank() -> makeToastMessage(
                 applicationContext,
                 getString(R.string.login_screen_empty_id)
             )
 
-            inputPw.isNullOrBlank() -> makeToastMessage(
+            inputPw.isBlank() -> makeToastMessage(
                 applicationContext,
                 getString(R.string.login_screen_empty_pw)
             )
