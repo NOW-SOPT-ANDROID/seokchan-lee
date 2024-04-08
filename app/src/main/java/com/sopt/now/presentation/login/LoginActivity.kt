@@ -19,7 +19,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setAutoLogin()
         initLoginStateObserver()
         initLoginBtnClickListener()
         initSignupBtnClickListener()
@@ -56,9 +55,5 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    fun setAutoLogin() {
-        viewmodel.loginStateChange()
     }
 }
