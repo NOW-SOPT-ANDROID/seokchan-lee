@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.sopt.now.R
 import com.sopt.now.databinding.ActivityMainBinding
+import com.sopt.now.presentation.main.friends.MainFragment
+import com.sopt.now.presentation.main.mypage.MypageFragment
+import com.sopt.now.presentation.main.search.SearchFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -16,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        replaceFragment(MainFragment())
         initBottomNavigationClickListener()
     }
 
