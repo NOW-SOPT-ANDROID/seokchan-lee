@@ -29,7 +29,6 @@
         <activity
             android:name=".presentation.login.LoginActivity"
             android:exported="false">
-
         </activity>
     </application>
 
