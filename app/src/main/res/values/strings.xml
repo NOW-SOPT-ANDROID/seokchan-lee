@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">NOW SOPT Android</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="login_screen_title">Welcome To SOPT</string>
+    <string name="login_screen_id">ID</string>
+    <string name="login_screen_input_id">ID를 입력하세요</string>
+    <string name="login_screen_pw">PW</string>
+    <string name="login_screen_input_pw">비밀번호를 입력하세요</string>
+    <string name="login_screen_login_btn">로그인 하기</string>
+    <string name="login_screen_signup_btn">회원가입 하기</string>
+    <string name="login_screen_success_signup">회원가입이 완료되었습니다</string>
+    <string name="login_screen_success_login">로그인에 성공하였습니다</string>
+    <string name="login_screen_empty_id">ID를 입력해주세요</string>
+    <string name="login_screen_empty_pw">비밀번호를 입력해주세요</string>
+    <string name="login_screen_invalid_account">계정이 맞지 않습니다</string>
+    <string name="signup_screen_title">SIGN UP</string>
+    <string name="signup_screen_id">ID</string>
+    <string name="signup_screen_input_title">ID를 입력하세요</string>
+    <string name="signup_screen_pw">비밀번호</string>
+    <string name="signup_screen_input_pw">비밀번호를 입력하세요</string>
+    <string name="signup_screen_nickname">Nickname</string>
+    <string name="signup_screen_input_nickname">닉네임를 입력하세요</string>
+    <string name="signup_screen_mbti">MBTI</string>
+    <string name="signup_screen_input_mbti">MBTI를 입력하세요</string>
+    <string name="signup_screen_btn">회원가입 하기</string>
+    <string name="signup_screen_empty_id">아이디를 입력해주세요</string>
+    <string name="signup_screen_empty_pw">비밀번호를 입력해주세요</string>
+    <string name="signup_screen_empty_nickname">닉네임은 한 글자 이상 입력해주세요</string>
+    <string name="signup_screen_empty_mbti">MBTI를 입력해주세요</string>
+    <string name="signup_screen_invalid_id">아이디는 6~10 글자 사이로 입력해주세요</string>
+    <string name="signup_screen_invalid_pw">비밀번호는 8~12 글자 사이로 입력해주세요</string>
+    <string name="main_screen_id">ID</string>
+    <string name="main_screen_pw">PW</string>
 </resources>
