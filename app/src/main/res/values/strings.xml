@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">NOW SOPT Android</string>
+
+    <string name="login_title">Welcome to SOPT</string>
+    <string name="login_id">ID</string>
+    <string name="login_input_id">아이디를 입력해주세요</string>
+    <string name="login_pw">비밀번호</string>
+    <string name="login_input_pw">비밀번호를 입력해주세요</string>
+    <string name="login_btn">로그인 하기</string>
+    <string name="login_signup_btn">회원가입 하기</string>
+
+    <string name="signup_title">SIGN UP</string>
+    <string name="signup_id">ID</string>
+    <string name="signup_input_id">아이디를 입력해주세요</string>
+    <string name="signup_pw">비밀번호</string>
+    <string name="signup_input_pw">비밀번호를 입력해주세요</string>
+    <string name="login_success_login">로그인에 성공했습니다</string>
+    <string name="signup_nickname">닉네임</string>
+    <string name="signup_input_nickname">닉네임을 입력해주세요</string>
+    <string name="signup_mbti">MBTI</string>
+    <string name="signup_input_mbti">MBTI를 입력해주세요</string>
+    <string name="signup_id_empty">아이디를 입력해주세요</string>
+    <string name="signup_pw_empty">비밀번호를 입력해주세요</string>
+    <string name="signup_nickname_empty">닉네임은 한 글자 이상 입력해주세요</string>
+    <string name="signup_mbti_empty">MBTI를 입력해주세요</string>
+    <string name="signup_id_length">아이디는 6~10 글자 사이로 입력해주세요</string>
+    <string name="signup_pw_length">비밀번호는 8~12 글자 사이로 입력해주세요</string>
+    <string name="login_signup_success">회원가입에 성공했습니다.</string>
+    <string name="main_user_name">name</string>
+    <string name="main_id">ID</string>
+    <string name="main_user_id">userid</string>
+    <string name="main_pw">비밀번호</string>
+    <string name="main_user_pw">userpw</string>
 </resources>
