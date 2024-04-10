@@ -20,6 +20,8 @@
         android:id="@+id/bnv_home"
         android:layout_width="0dp"
         android:layout_height="80dp"
+        app:itemIconTint="@color/gray"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
