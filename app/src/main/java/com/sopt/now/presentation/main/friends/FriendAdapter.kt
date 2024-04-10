@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.sopt.now.databinding.ItemFriendBinding
 
-class FriendAdapter : ListAdapter<Friend, FriendViewHolder>(diffUtil) {
+class FriendAdapter(
+    private val onClicked: (Friend) -> Unit,
+    private val onLongClicked: (Friend) -> Unit
+) : ListAdapter<Friend, FriendViewHolder>(diffUtil) {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
         return FriendViewHolder(
@@ -14,7 +18,9 @@ class FriendAdapter : ListAdapter<Friend, FriendViewHolder>(diffUtil) {
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onClicked,
+            onLongClicked
         )
     }
 
