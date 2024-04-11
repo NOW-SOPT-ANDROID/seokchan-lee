@@ -5,6 +5,6 @@ import androidx.annotation.DrawableRes
 data class Friend(
     val id:Int?,
     @DrawableRes val profileImage: Int,
-    val name: String,
-    val music:String
+    val name: String = "",
+    val music:String = ""
 )
