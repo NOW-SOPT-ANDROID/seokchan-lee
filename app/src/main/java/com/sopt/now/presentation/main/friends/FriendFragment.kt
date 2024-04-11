@@ -8,43 +8,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sopt.now.R
 import com.sopt.now.data.database.FriendDatabase
-import com.sopt.now.data.model.FriendEntity
+import com.sopt.now.data.model.MyProfile
 import com.sopt.now.databinding.FragmentFriendBinding
 import com.sopt.now.presentation.main.friends.addfriend.AddFriendActivity
-import kotlinx.coroutines.launch
+
 
 class MainFragment : Fragment() {
-    val myProfileAdapter = MyProfileAdapter()
-    val friendAdapter = FriendAdapter(
-        onClicked = {
-            Toast.makeText(requireContext(), "클릭", Toast.LENGTH_SHORT).show()
-        },
-        onLongClicked = {
-            makeFriendDialog(it.id)
-            Toast.makeText(requireContext(), "롱클릭", Toast.LENGTH_SHORT).show()
-        }
-    )
-
-    //Todo. 더미데이터옮기기
-    private var dummyProfile = mutableListOf<MyProfile>(
-        MyProfile(
-            profileImage = R.drawable.baseline_person_24,
-            name = "이석찬",
-            otherPerson = R.drawable.baseline_person_24
+    private val viewModel by viewModels<FriendViewModel> {
+        FriendViewModelFactory(
+            FriendDatabase.getDatabase(
+                requireContext()
+            )
         )
-    )
-    //Todo
-
+    }
+    lateinit var myProfileAdapter: MyProfileAdapter
+    lateinit var friendAdapter: FriendAdapter
     private var _binding: FragmentFriendBinding? = null
     private val binding: FragmentFriendBinding
         get() = requireNotNull(_binding)
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,26 +46,21 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initFloatingBtnClickListener()
+        initAdapter()
+        viewModel.getFriend()
+        FriendListObserver()
 
-        //TODO 데이터받아와서 리스트추가
-        lifecycleScope.launch {
-            val db = Room.databaseBuilder(
-                requireContext(),
-                FriendDatabase::class.java, "friend_database"
-            ).build()
-            val friendDao = db.friendDao()
-            val itemlsit = FriendEntity.toFriend(friendDao.getFriend())
-            friendAdapter.submitList(itemlsit)
-
-        }
+        //TODO. 고쳐야됨
+        val dummyProfile = mutableListOf<MyProfile>(
+            MyProfile(
+                profileImage = R.drawable.baseline_person_24,
+                name = "이석찬",
+                otherPerson = R.drawable.baseline_person_24
+            )
+        )
         myProfileAdapter.submitList(dummyProfile)
-        //TODO
+        //TODO. 고쳐야됨
 
-
-        binding.rvMain.run {
-            adapter = ConcatAdapter(myProfileAdapter, friendAdapter)
-            layoutManager = LinearLayoutManager(requireContext())
-        }
     }
 
     override fun onDestroyView() {
@@ -85,6 +68,18 @@ class MainFragment : Fragment() {
         _binding = null
     }
 
+    private fun initAdapter() {
+        myProfileAdapter = MyProfileAdapter()
+        friendAdapter = FriendAdapter(
+            onClicked = {
+                Toast.makeText(requireContext(), "클릭", Toast.LENGTH_SHORT).show()
+            },
+            onLongClicked = {
+                makeFriendDialog(it.id)
+                Toast.makeText(requireContext(), "롱클릭", Toast.LENGTH_SHORT).show()
+            }
+        )
+    }
 
     private fun initFloatingBtnClickListener() {
         binding.fbAddFriend.setOnClickListener {
@@ -105,25 +100,28 @@ class MainFragment : Fragment() {
     }
 
     private fun deleteFriend(index: Int?) {
-        //Todo. 데이터베이스에서 삭제
         if (index != null) {
-            lifecycleScope.launch {
-                val db = Room.databaseBuilder(
-                    requireContext(),
-                    FriendDatabase::class.java, "friend_database"
-                ).build()
-                db.friendDao().deleteFriend(index)
-            }
+            viewModel.deleteFriend(index)
         } else {
             Toast.makeText(requireContext(), "없는아이디", Toast.LENGTH_SHORT).show()
         }
-        //TODO
-        myProfileAdapter.submitList(dummyProfile)
+    }
 
+    private fun FriendListObserver() {
+        viewModel.friendList.observe(viewLifecycleOwner) {
+            if (viewModel.friendList.value.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "데이터없음", Toast.LENGTH_SHORT).show()
+            } else {
+                friendAdapter.submitList(viewModel.friendList.value)
+                submitFriendList()
+            }
+        }
+    }
+
+    private fun submitFriendList() {
         binding.rvMain.run {
             adapter = ConcatAdapter(myProfileAdapter, friendAdapter)
             layoutManager = LinearLayoutManager(requireContext())
         }
-
     }
 }

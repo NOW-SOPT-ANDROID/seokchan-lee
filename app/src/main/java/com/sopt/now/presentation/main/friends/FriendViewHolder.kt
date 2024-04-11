@@ -20,6 +20,7 @@ class FriendViewHolder(
             initRecyclerViewLongClickListener(friendData)
         }
     }
+
     private fun initRecyclerViewClickListener(friendData: Friend) {
         binding.root.setOnClickListener {
             onClicked(friendData)

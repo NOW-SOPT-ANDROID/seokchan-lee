@@ -27,11 +27,16 @@ class LoginViewModel : ViewModel() {
         return MyApplication.userdata.getString(PREF_KEY)
     }
 
-    fun checkInvalidLogin(inputId: String, inputPw: String, userData: User) {
+    fun checkInvalidLogin() {
+        val userData = getUserData()
         when {
-            inputId.isBlank() -> _loginState.value = LoginState.Failure(R.string.signup_empty_id)
-            inputPw.isBlank() -> _loginState.value = LoginState.Failure(R.string.signup_empty_pw)
-            inputId == userData.id && inputPw == userData.pw -> {
+            id.value.toString().isBlank() -> _loginState.value =
+                LoginState.Failure(R.string.signup_empty_id)
+
+            pw.value.toString().isBlank() -> _loginState.value =
+                LoginState.Failure(R.string.signup_empty_pw)
+
+            id.value.toString() == userData.id && pw.value.toString() == userData.pw -> {
                 MyApplication.userdata.setBoolean(LOGIN_STATE_KEY, true)
                 loginStateChange()
                 _loginState.value = LoginState.Success(R.string.login_success_login)
@@ -40,6 +45,14 @@ class LoginViewModel : ViewModel() {
             else -> _loginState.value = LoginState.Empty
         }
 
+    }
+
+    fun updateId(msg: String) {
+        id.value = msg
+    }
+
+    fun updatePw(msg: String) {
+        pw.value = msg
     }
 
     companion object {

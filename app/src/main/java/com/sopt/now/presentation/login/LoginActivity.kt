@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.sopt.now.R
+import androidx.core.widget.doAfterTextChanged
 import com.sopt.now.databinding.ActivityLoginBinding
 import com.sopt.now.presentation.main.MainActivity
 import com.sopt.now.presentation.signup.SignupActivity
@@ -19,20 +19,24 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initEditTextChangedListener()
         initLoginStateObserver()
         initLoginBtnClickListener()
         initSignupBtnClickListener()
     }
 
+    private fun initEditTextChangedListener() {
+        binding.etLoginInputId.doAfterTextChanged {
+            viewmodel.updateId(it.toString())
+        }
+        binding.etLoginInputId.doAfterTextChanged {
+            viewmodel.updatePw(it.toString())
+        }
+    }
 
     private fun initLoginBtnClickListener() {
         binding.btLogin.setOnClickListener {
-            val (inputID, inputPW) = Pair(
-                binding.etLoginInputId.text.toString(),
-                binding.etLoginInputPw.text.toString()
-            )
-            val userInfo = viewmodel.getUserData()
-            viewmodel.checkInvalidLogin(inputID, inputPW, userInfo)
+            viewmodel.checkInvalidLogin()
         }
     }
 
@@ -46,12 +50,14 @@ class LoginActivity : AppCompatActivity() {
 
     fun initLoginStateObserver() {
         viewmodel.loginState.observe(this) {
-            when(it) {
+            when (it) {
                 LoginState.Empty -> {
                 }
+
                 is LoginState.Failure -> {
                     Toast.makeText(this, it.msg, Toast.LENGTH_SHORT).show()
                 }
+
                 is LoginState.Success -> {
                     Toast.makeText(this, it.msg, Toast.LENGTH_SHORT).show()
                     Intent(this, MainActivity::class.java).let {

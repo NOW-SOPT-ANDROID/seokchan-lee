@@ -2,10 +2,10 @@ package com.sopt.now.presentation.main.friends
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.sopt.now.data.model.Friend
 import com.sopt.now.databinding.ItemFriendBinding
+import com.sopt.now.util.DiffUtilCallBack
 
 class FriendAdapter(
     private val onClicked: (Friend) -> Unit,
@@ -31,14 +31,9 @@ class FriendAdapter(
 
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<Friend>() {
-            override fun areItemsTheSame(oldItem: Friend, newItem: Friend): Boolean {
-                return oldItem.name == newItem.name
-            }
-
-            override fun areContentsTheSame(oldItem: Friend, newItem: Friend): Boolean {
-                return oldItem == newItem
-            }
-        }
+        val diffUtil = DiffUtilCallBack<Friend>(
+            onContentsTheSame = { old, new -> old.id == new.id },
+            onItemsTheSame = { old, new -> old.name == new.name }
+        )
     }
 }

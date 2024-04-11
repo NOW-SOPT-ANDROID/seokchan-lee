@@ -2,15 +2,14 @@ package com.sopt.now.presentation.main.friends.addfriend
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.Room
 import com.sopt.now.data.database.FriendDatabase
-import java.lang.IllegalArgumentException
 
-class AddFriendViewModelFactory(private val friendDatabase: FriendDatabase):ViewModelProvider.Factory {
+class AddFriendViewModelFactory(private val friendDatabase: FriendDatabase) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(AddFriendViewModel::class.java)){
+        if (modelClass.isAssignableFrom(AddFriendViewModel::class.java)) {
             return AddFriendViewModel(friendDatabase) as T
-        }else{
+        } else {
             throw IllegalArgumentException("unknown")
         }
     }
