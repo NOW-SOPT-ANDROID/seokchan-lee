@@ -48,7 +48,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="음악를 입력해주세요"
-        android:inputType="textPassword"
+        android:inputType="text"
         android:maxLines="1"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/tv_add_friend_music"
