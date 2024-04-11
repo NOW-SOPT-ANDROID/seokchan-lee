@@ -16,7 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sopt.now.R
 import com.sopt.now.data.database.FriendDatabase
 import com.sopt.now.data.model.FriendEntity
-import com.sopt.now.databinding.FragmentMainBinding
+import com.sopt.now.databinding.FragmentFriendBinding
 import com.sopt.now.presentation.main.friends.addfriend.AddFriendActivity
 import kotlinx.coroutines.launch
 
@@ -42,15 +42,15 @@ class MainFragment : Fragment() {
     )
     //Todo
 
-    private var _binding: FragmentMainBinding? = null
-    private val binding: FragmentMainBinding
+    private var _binding: FragmentFriendBinding? = null
+    private val binding: FragmentFriendBinding
         get() = requireNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentFriendBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -86,25 +86,27 @@ class MainFragment : Fragment() {
     }
 
 
-    private fun initFloatingBtnClickListener(){
+    private fun initFloatingBtnClickListener() {
         binding.fbAddFriend.setOnClickListener {
             Intent(requireContext(), AddFriendActivity::class.java).let {
                 startActivity(it)
             }
         }
     }
-    private fun makeFriendDialog(id:Int?){
+
+    private fun makeFriendDialog(id: Int?) {
         MaterialAlertDialogBuilder(requireContext())
             .setMessage("친구 목록에서 삭제하시겠습니까?")
-            .setNegativeButton("Cancel"){dialog:DialogInterface, which:Int ->
+            .setNegativeButton("Cancel") { dialog: DialogInterface, which: Int ->
             }
-            .setPositiveButton("Delete"){dialog:DialogInterface, which:Int ->
+            .setPositiveButton("Delete") { dialog: DialogInterface, which: Int ->
                 deleteFriend(id)
             }.show()
     }
-    private fun deleteFriend(index:Int?){
+
+    private fun deleteFriend(index: Int?) {
         //Todo. 데이터베이스에서 삭제
-        if(index!=null){
+        if (index != null) {
             lifecycleScope.launch {
                 val db = Room.databaseBuilder(
                     requireContext(),
@@ -112,9 +114,8 @@ class MainFragment : Fragment() {
                 ).build()
                 db.friendDao().deleteFriend(index)
             }
-        }
-        else{
-            Toast.makeText(requireContext(),"없는아이디",Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "없는아이디", Toast.LENGTH_SHORT).show()
         }
         //TODO
         myProfileAdapter.submitList(dummyProfile)
