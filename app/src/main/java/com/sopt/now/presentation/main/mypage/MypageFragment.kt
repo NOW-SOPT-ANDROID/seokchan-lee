@@ -40,7 +40,7 @@ class MypageFragment : Fragment() {
 
     private fun initLogoutBtnClickListener() {
         binding.btLogout.setOnClickListener {
-            MyApplication.userdata.clearUserData()
+            //MyApplication.userdata.clearUserData()
         }
     }
 }

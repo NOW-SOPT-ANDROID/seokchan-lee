@@ -9,7 +9,9 @@ import com.sopt.now.databinding.ActivityMainBinding
 import com.sopt.now.presentation.main.friends.MainFragment
 import com.sopt.now.presentation.main.mypage.MypageFragment
 import com.sopt.now.presentation.main.search.SearchFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private val viewmodel by viewModels<MainViewModel>()
