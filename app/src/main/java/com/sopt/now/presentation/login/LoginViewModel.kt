@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val sharedPreferences: preferenceUtil): ViewModel() {
     private val _loginState: MutableLiveData<LoginState> = MutableLiveData(LoginState.Empty)
-    val loginState: LiveData<LoginState> = _loginState
+    val loginState: LiveData<LoginState> get() = _loginState
 
     private val id: MutableLiveData<String> = MutableLiveData("")
     private val pw: MutableLiveData<String> = MutableLiveData("")
