@@ -6,8 +6,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.sopt.now.databinding.ActivitySignupBinding
 import com.sopt.now.presentation.model.User
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
     private val viewmodel by viewModels<SignupViewModel>()

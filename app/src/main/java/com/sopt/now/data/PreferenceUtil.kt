@@ -3,8 +3,14 @@ package com.sopt.now.data
 import android.content.Context
 import com.google.gson.Gson
 import com.sopt.now.presentation.model.User
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class preferenceUtil(context: Context) {
+@Singleton
+class preferenceUtil @Inject constructor(
+    @ApplicationContext context: Context
+) {
     private val userdata = context.getSharedPreferences("userData", Context.MODE_PRIVATE)
 
     fun getString(key: String): User {

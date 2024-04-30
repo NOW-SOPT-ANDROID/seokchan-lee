@@ -1,4 +1,4 @@
-package com.sopt.now.presentation.main.friends
+package com.sopt.now.data.model
 
 import androidx.annotation.DrawableRes
 

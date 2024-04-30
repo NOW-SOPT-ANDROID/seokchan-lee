@@ -5,9 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sopt.now.MyApplication
 import com.sopt.now.R
+import com.sopt.now.data.preferenceUtil
 import com.sopt.now.presentation.model.User
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(private val sharedPreferences: preferenceUtil): ViewModel() {
     private val _loginState: MutableLiveData<LoginState> = MutableLiveData(LoginState.Empty)
     val loginState: LiveData<LoginState> = _loginState
 
@@ -19,20 +23,25 @@ class LoginViewModel : ViewModel() {
     }
 
     private fun loginStateChange() {
-        if (MyApplication.userdata.getBoolean(LOGIN_STATE_KEY))
+        if (sharedPreferences.getBoolean(LOGIN_STATE_KEY))
             _loginState.value = LoginState.Success(R.string.login_success_login)
     }
 
     fun getUserData(): User {
-        return MyApplication.userdata.getString(PREF_KEY)
+        return sharedPreferences.getString(PREF_KEY)
     }
 
-    fun checkInvalidLogin(inputId: String, inputPw: String, userData: User) {
+    fun checkInvalidLogin() {
+        val userData = getUserData()
         when {
-            inputId.isBlank() -> _loginState.value = LoginState.Failure(R.string.signup_empty_id)
-            inputPw.isBlank() -> _loginState.value = LoginState.Failure(R.string.signup_empty_pw)
-            inputId == userData.id && inputPw == userData.pw -> {
-                MyApplication.userdata.setBoolean(LOGIN_STATE_KEY, true)
+            id.value.toString().isBlank() -> _loginState.value =
+                LoginState.Failure(R.string.signup_empty_id)
+
+            pw.value.toString().isBlank() -> _loginState.value =
+                LoginState.Failure(R.string.signup_empty_pw)
+
+            id.value.toString() == userData.id && pw.value.toString() == userData.pw -> {
+                sharedPreferences.setBoolean(LOGIN_STATE_KEY, true)
                 loginStateChange()
                 _loginState.value = LoginState.Success(R.string.login_success_login)
             }
@@ -40,6 +49,14 @@ class LoginViewModel : ViewModel() {
             else -> _loginState.value = LoginState.Empty
         }
 
+    }
+
+    fun updateId(msg: String) {
+        id.value = msg
+    }
+
+    fun updatePw(msg: String) {
+        pw.value = msg
     }
 
     companion object {
