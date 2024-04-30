@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class FriendViewModel(private val friendDatabase: FriendDatabase) : ViewModel() {
     private val _friendList = MutableLiveData<List<Friend>>()
-    val friendList: LiveData<List<Friend>> = _friendList
+    val friendList: LiveData<List<Friend>> get() = _friendList
 
 
     fun getFriend() = viewModelScope.launch {

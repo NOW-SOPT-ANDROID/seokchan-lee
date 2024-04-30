@@ -50,7 +50,7 @@ class MainFragment : Fragment() {
         viewModel.getFriend()
         FriendListObserver()
 
-        //TODO. 고쳐야됨
+        //TODO 고쳐야됨
         val dummyProfile = mutableListOf<MyProfile>(
             MyProfile(
                 profileImage = R.drawable.baseline_person_24,
@@ -59,7 +59,7 @@ class MainFragment : Fragment() {
             )
         )
         myProfileAdapter.submitList(dummyProfile)
-        //TODO. 고쳐야됨
+        //TODO 고쳐야됨
 
     }
 
@@ -121,7 +121,6 @@ class MainFragment : Fragment() {
     private fun submitFriendList() {
         binding.rvMain.run {
             adapter = ConcatAdapter(myProfileAdapter, friendAdapter)
-            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 }
