@@ -1,4 +1,4 @@
-package com.sopt.now.compose.presentation
+package com.sopt.now.compose.screen.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

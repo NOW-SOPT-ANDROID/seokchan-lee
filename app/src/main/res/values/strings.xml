@@ -32,4 +32,8 @@
     <string name="signup_screen_invalid_pw">비밀번호는 8~12 글자 사이로 입력해주세요</string>
     <string name="main_screen_id">ID</string>
     <string name="main_screen_pw">PW</string>
+    <string name="Friend">friend</string>
+    <string name="MyPage">mypage</string>
+    <string name="Search">search</string>
+
 </resources>
