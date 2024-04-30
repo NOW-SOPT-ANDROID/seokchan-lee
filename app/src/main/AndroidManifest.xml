@@ -14,12 +14,15 @@
         android:theme="@style/Theme.NOWSOPTAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.main.MainActivity"
+            android:name=".presentation.main.friends.addfriend.AddFriendActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.signup.SignupActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".presentation.signup.SignupActivity"
+            android:exported="false"/>
         <activity
             android:name=".presentation.login.LoginActivity"
             android:exported="true">

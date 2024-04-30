@@ -32,9 +32,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.etLoginInputPw.text.toString()
             )
             val userInfo = viewmodel.getUserData()
-
-            if (!viewmodel.checkInvalidLogin(inputID, inputPW, userInfo))
-                Toast.makeText(this, getString(R.string.login_fail_login), Toast.LENGTH_SHORT).show()
+            viewmodel.checkInvalidLogin(inputID, inputPW, userInfo)
         }
     }
 
@@ -48,10 +46,17 @@ class LoginActivity : AppCompatActivity() {
 
     fun initLoginStateObserver() {
         viewmodel.loginState.observe(this) {
-            if (viewmodel.loginState.value == true) {
-                Toast.makeText(this, R.string.login_success_login, Toast.LENGTH_SHORT).show()
-                Intent(this, MainActivity::class.java).let {
-                    startActivity(it)
+            when(it) {
+                LoginState.Empty -> {
+                }
+                is LoginState.Failure -> {
+                    Toast.makeText(this, it.msg, Toast.LENGTH_SHORT).show()
+                }
+                is LoginState.Success -> {
+                    Toast.makeText(this, it.msg, Toast.LENGTH_SHORT).show()
+                    Intent(this, MainActivity::class.java).let {
+                        startActivity(it)
+                    }
                 }
             }
         }

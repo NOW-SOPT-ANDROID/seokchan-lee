@@ -3,8 +3,12 @@ package com.sopt.now.presentation.main
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.sopt.now.MyApplication
+import androidx.fragment.app.Fragment
+import com.sopt.now.R
 import com.sopt.now.databinding.ActivityMainBinding
+import com.sopt.now.presentation.main.friends.MainFragment
+import com.sopt.now.presentation.main.mypage.MypageFragment
+import com.sopt.now.presentation.main.search.SearchFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -15,26 +19,37 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initLogoutBtnClickListener()
-        setUserData()
+        replaceFragment(MainFragment())
+        initBottomNavigationClickListener()
     }
 
-    private fun initLogoutBtnClickListener() {
-        binding.btLogout.setOnClickListener {
-            MyApplication.userdata.clearUserData()
-            finish()
-        }
-    }
+    private fun initBottomNavigationClickListener() {
+        binding.bnvHome.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_friends -> {
+                    replaceFragment(MainFragment())
+                    true
+                }
 
-    private fun setUserData() {
-        viewmodel.getUserData().let { userInfo ->
-            with(binding){
-                tvUsername.text = userInfo.nickname
-                tvUserid.text = userInfo.id
-                tvUserpw.text = userInfo.pw
+                R.id.menu_search -> {
+                    replaceFragment(SearchFragment())
+                    true
+                }
+
+                R.id.menu_mypage -> {
+                    replaceFragment(MypageFragment())
+                    true
+                }
+
+                else -> false
             }
         }
+
     }
 
-
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fcv_home, fragment)
+            .commit()
+    }
 }
