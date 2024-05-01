@@ -62,6 +62,10 @@ class MainFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFriend()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -100,7 +104,10 @@ class MainFragment : Fragment() {
 
     private fun deleteFriend(index: Int?) {
         if (index != null) {
-            viewModel.deleteFriend(index)
+            runCatching { viewModel.deleteFriend(index) }
+                .onSuccess {
+                    viewModel.getFriend()
+                }
         } else {
             Toast.makeText(requireContext(), "없는아이디", Toast.LENGTH_SHORT).show()
         }
