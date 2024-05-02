@@ -38,7 +38,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun initLoginBtnClickListener() {
         binding.btLogin.setOnClickListener {
-            viewmodel.checkInvalidLogin()
+            viewmodel.signIn()
         }
     }
 

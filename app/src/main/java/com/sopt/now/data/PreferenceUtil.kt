@@ -1,22 +1,16 @@
 package com.sopt.now.data
 
 import android.content.SharedPreferences
-import com.google.gson.Gson
-import com.sopt.now.presentation.model.User
 import javax.inject.Inject
 
 class PreferenceUtil @Inject constructor(private val sharedPreferences: SharedPreferences) {
 
-    fun getString(key: String): User {
-        return if (sharedPreferences.getString(key, null) != null) {
-            Gson().fromJson(sharedPreferences.getString(key, null), User::class.java)
-        } else {
-            User("", "", "", "")
-        }
+    fun setUserId(key: String, value: Int) {
+        return sharedPreferences.edit().putInt(key, value).apply()
     }
 
-    fun setString(key: String, value: String) {
-        sharedPreferences.edit().putString(key, value).apply()
+    fun getUserId(key: String): Int {
+        return sharedPreferences.getInt(key, 0)
     }
 
     fun getBoolean(key: String): Boolean {

@@ -1,7 +1,7 @@
 package com.sopt.now.presentation.signin
 
 sealed interface SignInState {
-    object Empty : SignInState
+    data object Empty : SignInState
     data class Success(
         val msg: Int
     ) : SignInState

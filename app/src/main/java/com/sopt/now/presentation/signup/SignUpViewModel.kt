@@ -3,13 +3,11 @@ package com.sopt.now.presentation.signup
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
 import com.sopt.now.R
 import com.sopt.now.data.PreferenceUtil
 import com.sopt.now.data.RequestSignUpDto
 import com.sopt.now.data.ResponseSignUpDto
 import com.sopt.now.data.ServicePool
-import com.sopt.now.presentation.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -57,15 +55,11 @@ class SignUpViewModel @Inject constructor(private val sharedPreferences: Prefere
     }
 
     private fun getSignUpRequestDto(): RequestSignUpDto {
-        val id = this.id.value.toString()
-        val password = this.pw.value.toString()
-        val nickname = this.nickname.value.toString()
-        val phoneNumber = this.phoneNumber.value.toString()
         return RequestSignUpDto(
-            authenticationId = id,
-            password = password,
-            nickname = nickname,
-            phone = phoneNumber
+            authenticationId = id.value.toString(),
+            password = pw.value.toString(),
+            nickname = nickname.value.toString(),
+            phone = phoneNumber.value.toString()
         )
     }
 
