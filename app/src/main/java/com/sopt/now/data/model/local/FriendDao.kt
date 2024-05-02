@@ -1,4 +1,4 @@
-package com.sopt.now.data.model
+package com.sopt.now.data.model.local
 
 import androidx.room.Dao
 import androidx.room.Insert

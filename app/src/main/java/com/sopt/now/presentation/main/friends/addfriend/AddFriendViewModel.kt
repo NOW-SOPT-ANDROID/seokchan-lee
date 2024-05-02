@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.R
 import com.sopt.now.data.database.FriendDatabase
-import com.sopt.now.data.model.Friend
-import com.sopt.now.data.model.FriendEntity
+import com.sopt.now.data.model.local.Friend
+import com.sopt.now.data.model.local.FriendEntity
 import kotlinx.coroutines.launch
 
 class AddFriendViewModel(private val friendDatabase: FriendDatabase) : ViewModel() {

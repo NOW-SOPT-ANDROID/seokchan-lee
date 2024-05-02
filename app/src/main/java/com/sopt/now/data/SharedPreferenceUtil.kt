@@ -3,7 +3,7 @@ package com.sopt.now.data
 import android.content.SharedPreferences
 import javax.inject.Inject
 
-class PreferenceUtil @Inject constructor(private val sharedPreferences: SharedPreferences) {
+class SharedPreferenceUtil @Inject constructor(private val sharedPreferences: SharedPreferences) {
 
     fun setUserId(key: String, value: Int) {
         return sharedPreferences.edit().putInt(key, value).apply()

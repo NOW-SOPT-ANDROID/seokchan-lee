@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sopt.now.R
 import com.sopt.now.data.database.FriendDatabase
-import com.sopt.now.data.model.MyProfile
+import com.sopt.now.data.model.local.MyProfile
 import com.sopt.now.databinding.FragmentFriendBinding
 import com.sopt.now.presentation.main.friends.addfriend.AddFriendActivity
 

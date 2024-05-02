@@ -1,4 +1,4 @@
-package com.sopt.now.data
+package com.sopt.now.data.model.remote
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
