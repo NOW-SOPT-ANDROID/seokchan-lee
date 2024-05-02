@@ -1,35 +1,33 @@
 package com.sopt.now.data
 
-import android.content.Context
+import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.sopt.now.presentation.model.User
-import javax.inject.Singleton
+import javax.inject.Inject
 
-class PreferenceUtil(context: Context) {
-    private val userdata = context.getSharedPreferences("userData", Context.MODE_PRIVATE)
+class PreferenceUtil @Inject constructor(private val sharedPreferences: SharedPreferences) {
 
     fun getString(key: String): User {
-        return if (userdata.getString(key, null) != null) {
-            Gson().fromJson(userdata.getString(key, null), User::class.java)
+        return if (sharedPreferences.getString(key, null) != null) {
+            Gson().fromJson(sharedPreferences.getString(key, null), User::class.java)
         } else {
             User("", "", "", "")
         }
-
     }
 
     fun setString(key: String, value: String) {
-        userdata.edit().putString(key, value).apply()
+        sharedPreferences.edit().putString(key, value).apply()
     }
 
     fun getBoolean(key: String): Boolean {
-        return userdata.getBoolean(key, false)
+        return sharedPreferences.getBoolean(key, false)
     }
 
     fun setBoolean(key: String, value: Boolean) {
-        userdata.edit().putBoolean(key, value).apply()
+        sharedPreferences.edit().putBoolean(key, value).apply()
     }
 
     fun clearUserData() {
-        userdata.edit().clear().apply()
+        sharedPreferences.edit().clear().apply()
     }
 }
