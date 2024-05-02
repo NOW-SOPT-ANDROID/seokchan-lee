@@ -11,6 +11,7 @@ import com.sopt.now.presentation.main.mypage.MypageFragment
 import com.sopt.now.presentation.main.search.SearchFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private val viewmodel by viewModels<MainViewModel>()
@@ -45,7 +46,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
     }
 
     private fun replaceFragment(fragment: Fragment) {

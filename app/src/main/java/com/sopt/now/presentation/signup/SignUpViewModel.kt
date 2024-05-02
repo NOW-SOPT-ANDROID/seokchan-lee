@@ -5,9 +5,14 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.sopt.now.MyApplication
 import com.sopt.now.R
+import com.sopt.now.data.PreferenceUtil
 import com.sopt.now.presentation.model.User
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SignUpViewModel : ViewModel() {
+@HiltViewModel
+class SignUpViewModel @Inject constructor(private val sharedPreferences: PreferenceUtil) :
+    ViewModel() {
     private val _signUpState: MutableLiveData<SignUpState> = MutableLiveData(SignUpState.Empty)
     val signupState: MutableLiveData<SignUpState> get() = _signUpState
 
@@ -24,7 +29,7 @@ class SignUpViewModel : ViewModel() {
             mbti.value.toString()
         )
         val json = Gson().toJson(userInfo)
-        MyApplication.userdata.setString(PREF_KEY, json)
+        sharedPreferences.setString(PREF_KEY, json)
     }
 
     fun checkInvalidSignup() {

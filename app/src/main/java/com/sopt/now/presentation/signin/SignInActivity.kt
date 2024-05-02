@@ -9,7 +9,9 @@ import androidx.core.widget.doAfterTextChanged
 import com.sopt.now.databinding.ActivityLoginBinding
 import com.sopt.now.presentation.main.MainActivity
 import com.sopt.now.presentation.signup.SignUpActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewmodel by viewModels<SignInViewModel>()

@@ -6,9 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sopt.now.MyApplication
 import com.sopt.now.R
+import com.sopt.now.data.PreferenceUtil
 import com.sopt.now.presentation.model.User
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SignInViewModel : ViewModel() {
+@HiltViewModel
+class SignInViewModel @Inject constructor(private val sharedPreferences: PreferenceUtil) :
+    ViewModel() {
     private val _loginState: MutableLiveData<SignInState> = MutableLiveData(SignInState.Empty)
     val loginState: LiveData<SignInState> get() = _loginState
 
@@ -20,14 +25,14 @@ class SignInViewModel : ViewModel() {
     }
 
     private fun loginStateChange() {
-        if (MyApplication.userdata.getBoolean(LOGIN_STATE_KEY)) {
+        if (sharedPreferences.getBoolean(LOGIN_STATE_KEY)) {
             _loginState.value = SignInState.Success(R.string.login_success_login)
             Log.d("asd", _loginState.value.toString() + "   " + loginState.value.toString())
         }
     }
 
     private fun getUserData(): User {
-        return MyApplication.userdata.getString(PREF_KEY)
+        return sharedPreferences.getString(PREF_KEY)
     }
 
     fun checkInvalidLogin() {
@@ -40,7 +45,7 @@ class SignInViewModel : ViewModel() {
                 SignInState.Failure(R.string.signup_empty_pw)
 
             id.value.toString() == userData.id && pw.value.toString() == userData.pw -> {
-                MyApplication.userdata.setBoolean(LOGIN_STATE_KEY, true)
+                sharedPreferences.setBoolean(LOGIN_STATE_KEY, true)
                 loginStateChange()
             }
 
