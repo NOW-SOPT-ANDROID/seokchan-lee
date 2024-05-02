@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sopt.now.R
 import com.sopt.now.data.SharedPreferenceUtil
-import com.sopt.now.data.model.remote.RequestSignUpDto
-import com.sopt.now.data.model.remote.ResponseSignUpDto
+import com.sopt.now.data.model.remote.request.RequestSignUpDto
+import com.sopt.now.data.model.remote.response.ResponseSignUpDto
 import com.sopt.now.data.ServicePool
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call

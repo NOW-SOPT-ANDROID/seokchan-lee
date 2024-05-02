@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sopt.now.data.SharedPreferenceUtil
-import com.sopt.now.data.model.remote.ResponseUserInfoDto
+import com.sopt.now.data.model.remote.response.ResponseUserInfoDto
 import com.sopt.now.data.ServicePool
 import com.sopt.now.presentation.model.UserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
