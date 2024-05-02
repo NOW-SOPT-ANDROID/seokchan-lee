@@ -3,21 +3,16 @@ package com.sopt.now.data
 import android.content.Context
 import com.google.gson.Gson
 import com.sopt.now.presentation.model.User
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class preferenceUtil @Inject constructor(
-    @ApplicationContext context: Context
-) {
+class PreferenceUtil(context: Context) {
     private val userdata = context.getSharedPreferences("userData", Context.MODE_PRIVATE)
 
     fun getString(key: String): User {
-        if (userdata.getString(key, null) != null) {
-            return Gson().fromJson(userdata.getString(key, null), User::class.java)
+        return if (userdata.getString(key, null) != null) {
+            Gson().fromJson(userdata.getString(key, null), User::class.java)
         } else {
-            return User("", "", "", "")
+            User("", "", "", "")
         }
 
     }
