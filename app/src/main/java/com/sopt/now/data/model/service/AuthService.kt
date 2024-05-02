@@ -1,10 +1,10 @@
 package com.sopt.now.data.model.service
 
-import com.sopt.now.data.model.remote.RequestSignInDto
-import com.sopt.now.data.model.remote.RequestSignUpDto
-import com.sopt.now.data.model.remote.ResponseSignInDto
-import com.sopt.now.data.model.remote.ResponseSignUpDto
-import com.sopt.now.data.model.remote.ResponseUserInfoDto
+import com.sopt.now.data.model.remote.request.RequestSignInDto
+import com.sopt.now.data.model.remote.request.RequestSignUpDto
+import com.sopt.now.data.model.remote.response.ResponseSignInDto
+import com.sopt.now.data.model.remote.response.ResponseSignUpDto
+import com.sopt.now.data.model.remote.response.ResponseUserInfoDto
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
