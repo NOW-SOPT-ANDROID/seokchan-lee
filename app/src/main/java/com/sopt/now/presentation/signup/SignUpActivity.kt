@@ -34,13 +34,13 @@ class SignUpActivity : AppCompatActivity() {
             viewmodel.updateNickName(it.toString())
         }
         binding.etSignupMbti.doAfterTextChanged {
-            viewmodel.updateMbti(it.toString())
+            viewmodel.updatePhoneNumber(it.toString())
         }
     }
 
     private fun initSignupBtnClickListener() {
         binding.btSignup.setOnClickListener {
-            viewmodel.checkInvalidSignup()
+            viewmodel.signUp()
         }
     }
 
@@ -56,7 +56,6 @@ class SignUpActivity : AppCompatActivity() {
 
                 is SignUpState.Success -> {
                     Toast.makeText(this, it.msg, Toast.LENGTH_SHORT).show()
-                    viewmodel.setUserData()
                     finish()
                 }
             }
