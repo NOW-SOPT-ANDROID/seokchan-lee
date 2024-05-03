@@ -1,5 +1,6 @@
 package com.sopt.now.compose.screen.signin
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,6 +32,7 @@ fun SignInScreen(
     viewmodel: SignInViewModel,
     navController: NavController
 ) {
+    InitSignInStateObserver(viewmodel, navController)
     var userId by remember { mutableStateOf("") }
     var userPw by remember { mutableStateOf("") }
 
@@ -85,8 +88,8 @@ fun SignInScreen(
         )
         Button(
             onClick = {
-                viewmodel.checkInvalidSignIn(userId, userPw)
-                navController.navigate("home")
+                viewmodel.updateLoginInfo(userId, userPw)
+                viewmodel.signIn()
             },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -113,5 +116,22 @@ fun SignInScreen(
             modifier = Modifier
                 .height(70.dp)
         )
+    }
+}
+
+@Composable
+private fun InitSignInStateObserver(viewmodel: SignInViewModel, navController: NavController) {
+    when (val signInState = viewmodel.loginState.observeAsState().value) {
+        SignInState.Empty -> {}
+        is SignInState.Failure -> {
+            Toast.makeText(navController.context, signInState.msg, Toast.LENGTH_SHORT).show()
+        }
+
+        is SignInState.Success -> {
+            Toast.makeText(navController.context, signInState.msg, Toast.LENGTH_SHORT).show()
+            navController.navigate("home")
+        }
+
+        null -> TODO()
     }
 }
