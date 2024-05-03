@@ -135,7 +135,7 @@ fun SignUpScreen(
 }
 
 @Composable
-fun InitSignUpStateObserver(viewmodel: SignUpViewModel, navController: NavController) {
+private fun InitSignUpStateObserver(viewmodel: SignUpViewModel, navController: NavController) {
     when (val signUpState = viewmodel.signupState.observeAsState().value) {
         SignUpState.Empty -> {
         }

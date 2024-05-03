@@ -36,6 +36,8 @@
     <string name="main_screen_pw">PW</string>
     <string name="Friend">friend</string>
     <string name="MyPage">mypage</string>
+    <string name="mypage_logout_btn">정보삭제</string>
+    <string name="mypage_success">성공</string>
     <string name="Search">search</string>
 
 </resources>
