@@ -9,25 +9,13 @@ class Preferences(
 ) {
     private val userdata = context.getSharedPreferences("userData", Context.MODE_PRIVATE)
 
-    fun getString(key: String): User {
-        return if (userdata.getString(key, null) != null) {
-            Gson().fromJson(userdata.getString(key, null), User::class.java)
-        } else {
-            User("", "", "", "")
-        }
 
+    fun setUserId(key: String, value: Int) {
+        return userdata.edit().putInt(key, value).apply()
     }
 
-    fun setString(key: String, value: String) {
-        userdata.edit().putString(key, value).apply()
-    }
-
-    fun getBoolean(key: String): Boolean {
-        return userdata.getBoolean(key, false)
-    }
-
-    fun setBoolean(key: String, value: Boolean) {
-        userdata.edit().putBoolean(key, value).apply()
+    fun getUserId(key: String): Int {
+        return userdata.getInt(key, 0)
     }
 
     fun clearUserData() {
