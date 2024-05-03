@@ -26,7 +26,6 @@ import com.sopt.now.compose.R
 @Composable
 fun MyPageScreen(
     viewmodel: MyPageViewModel,
-    navController: NavController
 ) {
     viewmodel.getSavedUserId()
     var userId by remember { mutableStateOf("") }
@@ -34,14 +33,12 @@ fun MyPageScreen(
     var userPhone by remember { mutableStateOf("") }
 
     //이거 어째해요
-    when (val myPageState = viewmodel.myPageState.observeAsState().value) {
+    when (viewmodel.myPageState.observeAsState().value) {
         MyPageState.Empty -> {}
         is MyPageState.Failure -> {
-            Toast.makeText(navController.context, myPageState.msg, Toast.LENGTH_SHORT).show()
         }
 
         is MyPageState.Success -> {
-            Toast.makeText(navController.context, myPageState.msg, Toast.LENGTH_SHORT).show()
             userId = viewmodel.userInfo.value?.authenticationId.toString()
             userNickname = viewmodel.userInfo.value?.nickname.toString()
             userPhone = viewmodel.userInfo.value?.phone.toString()
