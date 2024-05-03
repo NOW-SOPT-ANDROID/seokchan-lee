@@ -10,10 +10,10 @@ class Preferences(
     private val userdata = context.getSharedPreferences("userData", Context.MODE_PRIVATE)
 
     fun getString(key: String): User {
-        if (userdata.getString(key, null) != null) {
-            return Gson().fromJson(userdata.getString(key, null), User::class.java)
+        return if (userdata.getString(key, null) != null) {
+            Gson().fromJson(userdata.getString(key, null), User::class.java)
         } else {
-            return User("", "", "", "")
+            User("", "", "", "")
         }
 
     }

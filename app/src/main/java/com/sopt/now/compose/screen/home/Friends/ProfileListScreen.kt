@@ -1,4 +1,4 @@
-package com.sopt.now.compose.screen.Friends
+package com.sopt.now.compose.screen.home.Friends
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

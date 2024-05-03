@@ -1,4 +1,4 @@
-package com.sopt.now.compose.screen.Friends
+package com.sopt.now.compose.screen.home.Friends
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items

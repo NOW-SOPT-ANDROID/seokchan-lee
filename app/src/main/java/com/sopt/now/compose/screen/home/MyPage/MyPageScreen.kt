@@ -1,13 +1,13 @@
-package com.sopt.now.compose.screen.Search
+package com.sopt.now.compose.screen.home.MyPage
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SearchScreen(){
+fun MyPageScreen(){
     Text(
-        text = "search",
+        text = "mypage",
         fontSize = 20.sp
     )
 }
