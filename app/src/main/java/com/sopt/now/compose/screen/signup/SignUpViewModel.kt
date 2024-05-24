@@ -3,63 +3,62 @@ package com.sopt.now.compose.screen.signup
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
-import com.sopt.now.compose.MyApplication
 import com.sopt.now.compose.R
-import com.sopt.now.compose.screen.model.User
+import com.sopt.now.compose.data.model.RequestSignUpDto
+import com.sopt.now.compose.data.model.ResponseSignUpDto
+import com.sopt.now.compose.data.model.ServicePool
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpViewModel : ViewModel() {
+    private val _signUpState: MutableLiveData<SignUpState> = MutableLiveData(SignUpState.Empty)
+    val signupState: MutableLiveData<SignUpState> get() = _signUpState
 
     private val id: MutableLiveData<String> = MutableLiveData("")
     private val pw: MutableLiveData<String> = MutableLiveData("")
     private val nickname: MutableLiveData<String> = MutableLiveData("")
-    private val mbti: MutableLiveData<String> = MutableLiveData("")
+    private val phone: MutableLiveData<String> = MutableLiveData("")
 
-    fun updateUserInfo(userId: String, userPw: String, userNickname: String, userMbti: String) {
+    private val authService by lazy { ServicePool.authService }
+
+    fun updateUserInfo(userId: String, userPw: String, userNickname: String, userPhone: String) {
         id.value = userId
         pw.value = userPw
         nickname.value = userNickname
-        mbti.value = userMbti
-        Log.d("asd", id.value.toString())
+        phone.value = userPhone
     }
 
-
-    fun checkInvalidSignup(): signup {
-        return when {
-            id.value.toString().length !in MIN_ID..MAX_ID ->
-                signup(false, R.string.signup_screen_invalid_id)
-
-            pw.value.toString().length !in MIN_PW..MAX_PW ->
-                signup(false, R.string.signup_screen_invalid_pw)
-
-            nickname.value.isNullOrBlank() -> signup(false, R.string.signup_screen_empty_nickname)
-            mbti.value.isNullOrBlank() ->
-                signup(false, R.string.signup_screen_empty_mbti)
-
-            else -> {
-                setUserData()
-                signup(true, R.string.login_screen_success_signup)
+    fun signUp() {
+        val signUpRequest = getSignUpRequestDto()
+        authService.signUp(signUpRequest).enqueue(object : Callback<ResponseSignUpDto> {
+            override fun onResponse(
+                call: Call<ResponseSignUpDto>,
+                response: Response<ResponseSignUpDto>
+            ) {
+                if (response.isSuccessful) {
+                    val data: ResponseSignUpDto? = response.body()
+                    val userId = response.headers()["location"]
+                    Log.d("SignUp", "data: $data, userId: $userId")
+                    //data: ResponseSignUpDto(code=201, message=회원가입이 완료되었습니다.), userId: 485
+                    _signUpState.value = SignUpState.Success(R.string.login_screen_success_signup)
+                } else {
+                    _signUpState.value = SignUpState.Failure(R.string.signup_failure_input)
+                }
             }
-        }
+
+            override fun onFailure(call: Call<ResponseSignUpDto>, t: Throwable) {
+                _signUpState.value = SignUpState.Failure(R.string.signup_server_error)
+            }
+        })
     }
 
-    private fun setUserData() {
-        val user = User(
-            id.value.toString(),
-            pw.value.toString(),
-            nickname.value.toString(),
-            mbti.value.toString(),
+    private fun getSignUpRequestDto(): RequestSignUpDto {
+        return RequestSignUpDto(
+            authenticationId = id.value.toString(),
+            password = pw.value.toString(),
+            nickname = nickname.value.toString(),
+            phone = phone.value.toString()
         )
-        val json = Gson().toJson(user)
-        MyApplication.userdata.setString(PREF_KEY, json)
-    }
-
-    companion object {
-        private const val PREF_KEY = "USER_DATA"
-        private const val MIN_ID = 6
-        private const val MAX_ID = 10
-        private const val MIN_PW = 8
-        private const val MAX_PW = 12
-
     }
 }

@@ -17,9 +17,11 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.sopt.now.compose.screen.Friends.FriendScreen
-import com.sopt.now.compose.screen.MyPage.MyPageScreen
-import com.sopt.now.compose.screen.Search.SearchScreen
+import com.sopt.now.compose.screen.home.Friends.FriendScreen
+import com.sopt.now.compose.screen.home.MyPage.MyPageScreen
+import com.sopt.now.compose.screen.home.MyPage.MyPageViewModel
+import com.sopt.now.compose.screen.home.Search.SearchScreen
+import com.sopt.now.compose.screen.home.Search.SearchViewModel
 import com.sopt.now.compose.screen.navigation.BottomNavigationItem
 import com.sopt.now.compose.screen.navigation.Screen
 
@@ -72,10 +74,10 @@ fun HomeScreen() {
                 FriendScreen()
             }
             composable("mypage") {
-                MyPageScreen()
+                MyPageScreen(viewmodel = MyPageViewModel())
             }
             composable("search") {
-                SearchScreen()
+                SearchScreen(viewmodel = SearchViewModel())
             }
         }
     }

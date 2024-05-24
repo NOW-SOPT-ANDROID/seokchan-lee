@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.sopt.now.compose.screen.home.HomeScreen
+import com.sopt.now.compose.screen.home.MyPage.MyPageViewModel
 import com.sopt.now.compose.screen.main.MainScreen
 import com.sopt.now.compose.screen.signin.SignInScreen
 import com.sopt.now.compose.screen.signin.SignInViewModel

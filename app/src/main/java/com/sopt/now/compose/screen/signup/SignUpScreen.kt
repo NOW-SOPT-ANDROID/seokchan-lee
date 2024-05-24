@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -31,10 +32,11 @@ fun SignUpScreen(
     viewmodel: SignUpViewModel,
     navController: NavController
 ) {
+    InitSignUpStateObserver(viewmodel, navController)
     var userId by remember { mutableStateOf("") }
     var userPw by remember { mutableStateOf("") }
     var userNickname by remember { mutableStateOf("") }
-    var userMBTI by remember { mutableStateOf("") }
+    var userPhone by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -101,11 +103,11 @@ fun SignUpScreen(
                 .height(30.dp)
         )
         Column {
-            Text(stringResource(R.string.signup_screen_mbti))
+            Text(stringResource(R.string.signup_screen_phone))
             TextField(
-                value = userMBTI,
-                onValueChange = { userMBTI = it },
-                placeholder = { Text(stringResource(R.string.signup_screen_input_mbti)) },
+                value = userPhone,
+                onValueChange = { userPhone = it },
+                placeholder = { Text(stringResource(R.string.signup_screen_input_phone)) },
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -116,20 +118,8 @@ fun SignUpScreen(
         )
         Button(
             onClick = {
-                viewmodel.updateUserInfo(userId, userPw, userNickname, userMBTI)
-                val valid = viewmodel.checkInvalidSignup()
-                when (valid.signup) {
-                    false -> {
-                        Toast.makeText(navController.context, valid.message, Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
-                    true -> {
-                        Toast.makeText(navController.context, valid.message, Toast.LENGTH_SHORT)
-                            .show()
-                        navController.navigate("signIn")
-                    }
-                }
+                viewmodel.updateUserInfo(userId, userPw, userNickname, userPhone)
+                viewmodel.signUp()
             },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -141,6 +131,25 @@ fun SignUpScreen(
             modifier = Modifier
                 .height(10.dp)
         )
+    }
+}
+
+@Composable
+private fun InitSignUpStateObserver(viewmodel: SignUpViewModel, navController: NavController) {
+    when (val signUpState = viewmodel.signupState.observeAsState().value) {
+        SignUpState.Empty -> {
+        }
+
+        is SignUpState.Failure -> {
+            Toast.makeText(navController.context, signUpState.msg, Toast.LENGTH_SHORT).show()
+        }
+
+        is SignUpState.Success -> {
+            Toast.makeText(navController.context, signUpState.msg, Toast.LENGTH_SHORT).show()
+            navController.navigate("signIn")
+        }
+
+        null -> TODO()
     }
 }
 

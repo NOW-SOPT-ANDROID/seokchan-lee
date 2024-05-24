@@ -21,8 +21,10 @@
     <string name="signup_screen_input_pw">비밀번호를 입력하세요</string>
     <string name="signup_screen_nickname">Nickname</string>
     <string name="signup_screen_input_nickname">닉네임를 입력하세요</string>
-    <string name="signup_screen_mbti">MBTI</string>
-    <string name="signup_screen_input_mbti">MBTI를 입력하세요</string>
+    <string name="signup_screen_phone">Phone</string>
+    <string name="signup_screen_input_phone">전화번호를 입력하세요</string>
+    <string name="signup_failure_input">잘못된 입력</string>
+    <string name="signup_server_error">서버 에러</string>
     <string name="signup_screen_btn">회원가입 하기</string>
     <string name="signup_screen_empty_id">아이디를 입력해주세요</string>
     <string name="signup_screen_empty_pw">비밀번호를 입력해주세요</string>
@@ -34,6 +36,8 @@
     <string name="main_screen_pw">PW</string>
     <string name="Friend">friend</string>
     <string name="MyPage">mypage</string>
+    <string name="mypage_logout_btn">정보삭제</string>
+    <string name="mypage_success">성공</string>
     <string name="Search">search</string>
 
 </resources>
