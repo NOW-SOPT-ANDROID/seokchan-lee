@@ -67,8 +67,8 @@ class MainFragment : Fragment() {
         viewModel.getFriend()
     }
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 
     private fun initAdapter() {
