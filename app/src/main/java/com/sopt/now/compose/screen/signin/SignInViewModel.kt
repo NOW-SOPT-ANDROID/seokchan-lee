@@ -33,13 +33,12 @@ class SignInViewModel : ViewModel() {
                 response: Response<ResponseSignInDto>
             ) {
                 if (response.isSuccessful) {
-                    val userId = response.headers()["location"]
-                    if (userId != null) {
+                    response.headers()["location"]?.let {userId ->
                         MyApplication.userdata.setUserId(USER_ID_KEY, userId.toInt())
+                        _loginState.value = SignInState.Success(R.string.login_screen_success_login)
+                    } ?: run {
+                        _loginState.value = SignInState.Failure(R.string.signup_failure_input)
                     }
-                    _loginState.value = SignInState.Success(R.string.login_screen_success_login)
-                } else {
-                    _loginState.value = SignInState.Failure(R.string.signup_failure_input)
                 }
             }
 
