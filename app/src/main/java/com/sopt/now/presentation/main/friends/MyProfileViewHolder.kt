@@ -1,7 +1,7 @@
 package com.sopt.now.presentation.main.friends
 
 import androidx.recyclerview.widget.RecyclerView
-import com.sopt.now.data.model.MyProfile
+import com.sopt.now.data.model.local.MyProfile
 import com.sopt.now.databinding.ItemMyprofileBinding
 
 class MyProfileViewHolder(private val binding: ItemMyprofileBinding) :

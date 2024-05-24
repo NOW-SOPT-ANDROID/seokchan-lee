@@ -5,15 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.sopt.now.MyApplication
+import androidx.fragment.app.viewModels
 import com.sopt.now.databinding.FragmentMypageBinding
-import com.sopt.now.presentation.main.MainActivity
-import com.sopt.now.presentation.main.friends.FriendAdapter
-import com.sopt.now.presentation.main.friends.MyProfileAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MypageFragment : Fragment() {
+    private val viewmodel by viewModels<MyPageViewModel>()
     private var _binding: FragmentMypageBinding? = null
     private val binding: FragmentMypageBinding
         get() = requireNotNull(_binding)
@@ -21,7 +19,7 @@ class MypageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentMypageBinding.inflate(inflater, container, false)
         return binding.root
@@ -31,16 +29,29 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewmodel.getSavedUserId()
+        UserInfoObserver()
         initLogoutBtnClickListener()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    private fun UserInfoObserver() {
+        viewmodel.userInfo.observe(viewLifecycleOwner) {
+            if (viewmodel.userInfo.value?.authenticationId?.isEmpty() != true) {
+                binding.tvUserId.text = viewmodel.userInfo.value?.authenticationId
+                binding.tvUserNickname.text = viewmodel.userInfo.value?.nickname
+                binding.tvUserPhoneNumber.text = viewmodel.userInfo.value?.phone
+            }
+        }
+    }
+
     private fun initLogoutBtnClickListener() {
         binding.btLogout.setOnClickListener {
-            //MyApplication.userdata.clearUserData()
+            viewmodel.logOut()
         }
     }
 }

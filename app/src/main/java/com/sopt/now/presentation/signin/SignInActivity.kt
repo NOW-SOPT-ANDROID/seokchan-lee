@@ -1,4 +1,4 @@
-package com.sopt.now.presentation.login
+package com.sopt.now.presentation.signin
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.sopt.now.databinding.ActivityLoginBinding
 import com.sopt.now.presentation.main.MainActivity
-import com.sopt.now.presentation.signup.SignupActivity
+import com.sopt.now.presentation.signup.SignUpActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val viewmodel by viewModels<LoginViewModel>()
+    private val viewmodel by viewModels<SignInViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,36 +31,37 @@ class LoginActivity : AppCompatActivity() {
         binding.etLoginInputId.doAfterTextChanged {
             viewmodel.updateId(it.toString())
         }
-        binding.etLoginInputId.doAfterTextChanged {
+        binding.etLoginInputPw.doAfterTextChanged {
             viewmodel.updatePw(it.toString())
         }
     }
 
     private fun initLoginBtnClickListener() {
         binding.btLogin.setOnClickListener {
-            viewmodel.checkInvalidLogin()
+            viewmodel.signIn()
         }
     }
 
     private fun initSignupBtnClickListener() {
         binding.btSignup.setOnClickListener {
-            Intent(this, SignupActivity::class.java).let {
+            Intent(this, SignUpActivity::class.java).let {
                 startActivity(it)
             }
         }
     }
 
-    fun initLoginStateObserver() {
+    private fun initLoginStateObserver() {
         viewmodel.loginState.observe(this) {
             when (it) {
-                LoginState.Empty -> {
+                SignInState.Empty -> {
+                    Toast.makeText(this, "empty", Toast.LENGTH_SHORT).show()
                 }
 
-                is LoginState.Failure -> {
+                is SignInState.Failure -> {
                     Toast.makeText(this, it.msg, Toast.LENGTH_SHORT).show()
                 }
 
-                is LoginState.Success -> {
+                is SignInState.Success -> {
                     Toast.makeText(this, it.msg, Toast.LENGTH_SHORT).show()
                     Intent(this, MainActivity::class.java).let {
                         startActivity(it)

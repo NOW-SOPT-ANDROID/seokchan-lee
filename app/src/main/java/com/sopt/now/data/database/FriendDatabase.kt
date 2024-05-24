@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sopt.now.data.model.FriendDao
-import com.sopt.now.data.model.FriendEntity
+import com.sopt.now.data.model.local.FriendDao
+import com.sopt.now.data.model.local.FriendEntity
 
 @Database(entities = [FriendEntity::class], version = 2)
 abstract class FriendDatabase : RoomDatabase() {

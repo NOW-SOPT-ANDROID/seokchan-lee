@@ -1,4 +1,4 @@
-package com.sopt.now.data.model
+package com.sopt.now.data.model.local
 
 import androidx.annotation.DrawableRes
 import androidx.room.Entity

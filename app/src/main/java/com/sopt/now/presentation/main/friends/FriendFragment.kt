@@ -10,11 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sopt.now.R
 import com.sopt.now.data.database.FriendDatabase
-import com.sopt.now.data.model.MyProfile
+import com.sopt.now.data.model.local.MyProfile
 import com.sopt.now.databinding.FragmentFriendBinding
 import com.sopt.now.presentation.main.friends.addfriend.AddFriendActivity
 
@@ -37,7 +36,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFriendBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +49,7 @@ class MainFragment : Fragment() {
         viewModel.getFriend()
         FriendListObserver()
 
-        //TODO. 고쳐야됨
+        //TODO 고쳐야됨
         val dummyProfile = mutableListOf<MyProfile>(
             MyProfile(
                 profileImage = R.drawable.baseline_person_24,
@@ -59,10 +58,14 @@ class MainFragment : Fragment() {
             )
         )
         myProfileAdapter.submitList(dummyProfile)
-        //TODO. 고쳐야됨
+        //TODO 고쳐야됨
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFriend()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -101,7 +104,10 @@ class MainFragment : Fragment() {
 
     private fun deleteFriend(index: Int?) {
         if (index != null) {
-            viewModel.deleteFriend(index)
+            runCatching { viewModel.deleteFriend(index) }
+                .onSuccess {
+                    viewModel.getFriend()
+                }
         } else {
             Toast.makeText(requireContext(), "없는아이디", Toast.LENGTH_SHORT).show()
         }
@@ -121,7 +127,6 @@ class MainFragment : Fragment() {
     private fun submitFriendList() {
         binding.rvMain.run {
             adapter = ConcatAdapter(myProfileAdapter, friendAdapter)
-            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 }

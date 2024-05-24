@@ -3,7 +3,7 @@ package com.sopt.now.presentation.main.friends
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.sopt.now.data.model.MyProfile
+import com.sopt.now.data.model.local.MyProfile
 import com.sopt.now.databinding.ItemMyprofileBinding
 import com.sopt.now.util.DiffUtilCallBack
 
