@@ -1,7 +1,7 @@
 package com.sopt.now.presentation.main.friends
 
 import androidx.recyclerview.widget.RecyclerView
-import com.sopt.now.data.model.local.Friend
+import com.sopt.now.presentation.model.Friend
 import com.sopt.now.databinding.ItemFriendBinding
 
 class FriendViewHolder(
