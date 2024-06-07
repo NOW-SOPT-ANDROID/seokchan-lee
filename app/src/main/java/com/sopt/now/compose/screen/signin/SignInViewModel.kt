@@ -8,11 +8,17 @@ import com.sopt.now.compose.R
 import com.sopt.now.compose.data.model.RequestSignInDto
 import com.sopt.now.compose.data.model.ResponseSignInDto
 import com.sopt.now.compose.data.model.ServicePool
+import com.sopt.now.compose.data.repository.SharedPrefRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class SignInViewModel : ViewModel() {
+@HiltViewModel
+class SignInViewModel @Inject constructor(
+    private val sharedPreferences: SharedPrefRepository
+) : ViewModel() {
     private val _loginState: MutableLiveData<SignInState> = MutableLiveData(SignInState.Empty)
     val loginState: LiveData<SignInState> get() = _loginState
 
