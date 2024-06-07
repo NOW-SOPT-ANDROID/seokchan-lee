@@ -12,20 +12,16 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sopt.now.R
-import com.sopt.now.data.database.FriendDatabase
 import com.sopt.now.data.model.local.MyProfile
 import com.sopt.now.databinding.FragmentFriendBinding
 import com.sopt.now.presentation.main.friends.addfriend.AddFriendActivity
+import com.sopt.now.util.UiState
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
-    private val viewModel by viewModels<FriendViewModel> {
-        FriendViewModelFactory(
-            FriendDatabase.getDatabase(
-                requireContext()
-            )
-        )
-    }
+    private val viewModel by viewModels<FriendViewModel>()
     lateinit var myProfileAdapter: MyProfileAdapter
     lateinit var friendAdapter: FriendAdapter
     private var _binding: FragmentFriendBinding? = null
@@ -46,8 +42,7 @@ class MainFragment : Fragment() {
 
         initFloatingBtnClickListener()
         initAdapter()
-        viewModel.getFriend()
-        FriendListObserver()
+        initFriendListObserver()
 
         //TODO 고쳐야됨
         val dummyProfile = mutableListOf<MyProfile>(
@@ -66,6 +61,7 @@ class MainFragment : Fragment() {
         super.onResume()
         viewModel.getFriend()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -113,15 +109,26 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun FriendListObserver() {
-        viewModel.friendList.observe(viewLifecycleOwner) {
-            if (viewModel.friendList.value.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), "데이터없음", Toast.LENGTH_SHORT).show()
-            } else {
-                friendAdapter.submitList(viewModel.friendList.value)
-                submitFriendList()
+    private fun initFriendListObserver() {
+        viewModel.friendList.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Success -> {
+                    submitFriendList()
+                    friendAdapter.submitList(state.data)
+                }
+
+                is UiState.Failure -> {
+                    Toast.makeText(requireContext(), "친구없음", Toast.LENGTH_SHORT).show()
+                }
+
+                is UiState.Empty -> {
+                    Toast.makeText(requireContext(), "친구없음", Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
             }
         }
+
+
     }
 
     private fun submitFriendList() {

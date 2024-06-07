@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sopt.now.data.SharedPreferenceUtil
+import com.sopt.now.data.datasourceImpl.SharedPrefDataSourceImpl
 import com.sopt.now.data.model.remote.response.ResponseUserInfoDto
 import com.sopt.now.data.ServicePool
 import com.sopt.now.presentation.model.UserInfo
@@ -15,7 +15,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class MyPageViewModel @Inject constructor(private val sharedPreferences: SharedPreferenceUtil) :
+class MyPageViewModel @Inject constructor(private val sharedPreferences: SharedPrefDataSourceImpl) :
     ViewModel() {
     private var _userInfo: MutableLiveData<UserInfo> = MutableLiveData(UserInfo("", "", ""))
     val userInfo: LiveData<UserInfo> get() = _userInfo

@@ -3,6 +3,7 @@ package com.sopt.now.data.model.local
 import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.sopt.now.presentation.model.Friend
 
 @Entity(tableName = "friend_table")
 data class FriendEntity(
@@ -20,15 +21,6 @@ data class FriendEntity(
                 name = friend.name,
                 music = friend.music
 
-            )
-        }
-
-        fun toFriend(friendEntityList:List<FriendEntity>) = friendEntityList.map { data->
-            Friend(
-                id = data.id,
-                profileImage = data.profileImage,
-                name = data.name,
-                music = data.music
             )
         }
     }

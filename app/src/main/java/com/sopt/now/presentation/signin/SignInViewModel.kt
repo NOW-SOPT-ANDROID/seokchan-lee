@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sopt.now.R
-import com.sopt.now.data.SharedPreferenceUtil
+import com.sopt.now.data.datasourceImpl.SharedPrefDataSourceImpl
 import com.sopt.now.data.model.remote.request.RequestSignInDto
 import com.sopt.now.data.model.remote.response.ResponseSignInDto
 import com.sopt.now.data.ServicePool
+import com.sopt.now.data.repository.SharedPrefRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +16,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(private val sharedPreferences: SharedPreferenceUtil) :
+class SignInViewModel @Inject constructor(private val sharedPreferences: SharedPrefRepository) :
     ViewModel() {
     private val _loginState: MutableLiveData<SignInState> = MutableLiveData(SignInState.Empty)
     val loginState: LiveData<SignInState> get() = _loginState

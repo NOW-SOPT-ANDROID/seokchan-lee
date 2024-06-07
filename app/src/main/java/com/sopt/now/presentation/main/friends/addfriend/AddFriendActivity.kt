@@ -6,14 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.sopt.now.data.database.FriendDatabase
 import com.sopt.now.databinding.ActivityAddFriendBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddFriendActivity : AppCompatActivity() {
     lateinit var binding: ActivityAddFriendBinding
-    private val viewmodel by viewModels<AddFriendViewModel> {
-        AddFriendViewModelFactory(
-            FriendDatabase.getDatabase(this)
-        )
-    }
+    private val viewmodel by viewModels<AddFriendViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
